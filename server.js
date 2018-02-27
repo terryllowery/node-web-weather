@@ -1,19 +1,25 @@
 const express = require('express');
+const hbs = require('hbs');
 
 var app = express();
 
+app.set('view engine', 'hbs');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
     // res.send('<h1>Hello express</h1>');
-    res.send({
-        name: 'Terry',
-        likes: ['Flying, music, coffee, beer']
-    })
+    res.render('home.hbs', {
+        pageTitle: 'Home Page',
+        currentYear: new Date().getFullYear(),
+        message: 'Welcome to the weather app online'
+    });
 });
 
 app.get('/about', (req, res) => {
-    res.send('<h1>About page</h1>');
+    res.render('about.hbs', {
+        pageTitle: 'About Page',
+        currentYear: new Date().getFullYear()
+    });
 });
 
 // /bad - send json with errorMessage prop
